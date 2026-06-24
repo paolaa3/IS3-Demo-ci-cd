@@ -12,4 +12,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Trigger a Render
-      run: curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK }}"
+      run: |
+        curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK }}"
