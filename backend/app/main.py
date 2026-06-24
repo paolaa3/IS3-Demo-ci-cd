@@ -14,7 +14,7 @@ from app.liquidacion import Liquidacion
 app = FastAPI(
     title="API Liquidación de Sueldos",
     description="Demo de CI/CD - cálculo de liquidación de sueldos de empleados",
-    version="1.0.0",
+    version="1.0.1",
 )
 
 # CORS: en la demo se permite todo origen para simplificar.
@@ -46,7 +46,7 @@ class LiquidacionResponse(BaseModel):
 
 @app.get("/")
 def read_root():
-    return {"status": "ok", "service": "liquidacion-api"}
+    return {"status": "ok", "service": "api-liquidacion"}
 
 
 @app.get("/health")
