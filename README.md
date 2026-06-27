@@ -53,36 +53,22 @@ pytest tests/ -v
 ```bash
 cd frontend
 npm install
-cp .env.example .env   # ajustar VITE_API_URL si hace falta
+cp .env.example .env   # ajustar VITE_API_URL con la URL de la API en Render
 npm run dev
 ```
 
-## Pipelines de GitHub Actions
-
-## Setup de secrets y variables necesarios
-
-### En GitHub (`Settings → Secrets and variables → Actions`)
-
-| Tipo      | Nombre                  | Dónde se obtiene                                                                 |
-|-----------|--------------------------|-----------------------------------------------------------------------------------|
-| Secret    | `RENDER_DEPLOY_HOOK_URL` | Render → tu servicio → **Settings → Deploy Hook** (copiar la URL)                |
-| Secret    | `NETLIFY_AUTH_TOKEN`     | Netlify → **User settings → Applications → Personal access tokens**              |
-| Secret    | `NETLIFY_SITE_ID`        | Netlify → tu sitio → **Site settings → General → Site details → Site ID**        |
-| Variable  | `VITE_API_URL`           | URL pública de tu servicio en Render (ej: `https://liquidacion-api.onrender.com`) |
-
-> Los **secrets** son para credenciales; las **variables** (`vars.*`) son para valores no
-> sensibles como la URL de la API — sirve para mostrar en clase la diferencia entre ambos.
+## Ejecución del deploy
 
 ### En Render
-1. Crear un **Web Service** nuevo, conectado al repo (o usando `backend/render.yaml`
-   como Blueprint).
+1. Crear un **Web Service** nuevo, conectado al repo.
 2. Root directory: `backend`.
-3. Build command: `pip install -r requirements.txt` o `uv sync`.
-4. Start command: `uvicorn app.main:app --host 0.0.0.0 --port $PORT` o `uv run`.
-5. Copiar el **Deploy Hook** y guardarlo como secret en GitHub.
+3. Build command: `uv sync --frozen && uv cache prune --ci`.
+4. Start command: `uv run uvicorn app.main:app --reload --host 0.0.0.0 --port 8000`.
+5. Verificar que la configuración de **Auto Deploy** esté en "**On commit**".
 
 ### En Netlify
-1. Crear un sitio nuevo (puede ser "Deploy manually" para no duplicar el auto-deploy,
-   ya que el deploy real lo va a hacer Actions).
-2. Generar un **Personal Access Token** y copiar el **Site ID** del sitio.
-3. Guardar ambos como secrets en GitHub.
+1. Crear un sitio nuevo vinculando desde el repo.
+2. En la configuración establecer una variable de entorno, puede ser a través del .env (si fue generado) o cargando ahí la variable `VITE_API_URL` con la URL de la API en Render.
+3. Estableder en la configuración el Base directory: `frontend`.
+4. Build command: `npm run build`
+5. Publish directory: `frontend/dist`
