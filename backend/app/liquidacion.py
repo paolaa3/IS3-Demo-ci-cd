@@ -4,6 +4,7 @@
 #   con métodos para calcular sueldo básico, bruto y neto.
 # Objetivo: Revisar generación de tests unitarios y de integración para
 #   validar la funcionalidad de la clase.
+# Esos tests se encuentran en el archivo test_liquidacion.py y se ejecutan con pytest.
 ###########################################################################
 
 """

@@ -8,6 +8,9 @@ Demo para clase de CI/CD: una app simple de **liquidación de sueldos**, dividid
 
 ```
 .
+├── .github/                 # Actions para GitHUb
+│   ├── workflows/
+│   │   ├── python-test-and-lint.yml   # Action para test y lint del backend
 ├── backend/                 # API FastAPI
 │   ├── app/
 │   │   ├── liquidacion.py   # Lógica de negocio (clase Liquidacion)
@@ -23,7 +26,7 @@ Demo para clase de CI/CD: una app simple de **liquidación de sueldos**, dividid
 │       └── index.css
 ```
 
-## Cómo correr localmente
+## Cómo ejecutar localmente
 
 ### Backend
 
@@ -72,3 +75,8 @@ npm run dev
 3. Estableder en la configuración el Base directory: `frontend`.
 4. Build command: `npm run build`
 5. Publish directory: `frontend/dist`
+
+
+## Actions
+
+Para replicar un flujo de CI para el backend se agregó un archivo de un action que realiza la ejecución de tests (definidos en el directorio `backend/tests`) y un linter (Flake8, que solo se instala para ese flujo) para verificar buenas prácticas en el código de la API.
